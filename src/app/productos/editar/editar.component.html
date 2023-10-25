@@ -1,0 +1,15 @@
+<div *ngIf="cargando">
+    <p-progressSpinner class="spinner"></p-progressSpinner>
+    <div class="texto-spinner">Recuperando información...</div>
+  </div>
+  <div *ngIf="!cargando">
+    <rsig-app-breadcrumb [value]="editar"></rsig-app-breadcrumb>
+    <rsig-app-formulario-producto
+      [producto]="producto"
+      [modo]="modo"
+      [categoria]="categoria"
+      [departamento]="departamento"
+      (onSubmit)="onHSubmit($event)"
+    ></rsig-app-formulario-producto>
+  </div>
+  

@@ -1,0 +1,212 @@
+<div class="layout-content flex justify-content-center row">
+    <p-card header="{{ capitalizeFirstLetter(modo) }} producto">
+      <form [formGroup]="productoForm" (ngSubmit)="handleSubmit()">
+        <div
+          class="flex-none align-items-center justify-content-center font-bold text-black m-2 px-5 py-3 border-round"
+        >
+          <div class="field grid">
+            <label class="col-fixed" style="width: 150px">Nombre</label>
+            <div class="col">
+              <input
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus-border-primary"
+                type="text"
+                formControlName="nombre"
+                [placeholder]="
+                  modo === 'agregar'
+                    ? 'Nombre'
+                    : modo === 'editar'
+                    ? 'Nuevo nombre'
+                    : 'Nombre a eliminar'
+                "
+              />
+              <div
+                *ngIf="
+                  (productoForm.get('nombre').hasError('required') &&
+                    productoForm.get('nombre').touched) ||
+                  (productoForm.get('nombre').hasError('maxlength') &&
+                    productoForm.get('nombre').touched)
+                "
+                class="error-message text-danger"
+              >
+                <span *ngIf="productoForm.get('nombre').hasError('required')"
+                  >Nombre es requerido.</span
+                >
+                <span *ngIf="productoForm.get('nombre').hasError('maxlength')"
+                  >Nombre no puede superar los 250 caracteres.</span
+                >
+              </div>
+            </div>
+          </div>
+  
+          <div class="field grid">
+            <label class="col-fixed" style="width: 150px">Marca</label>
+            <div class="col">
+              <input
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus-border-primary"
+                type="text"
+                formControlName="marca"
+                [placeholder]="
+                  modo === 'agregar'
+                    ? 'Marca'
+                    : modo === 'editar'
+                    ? 'Nueva marca'
+                    : 'Marca a eliminar'
+                "
+              />
+              <div
+                *ngIf="
+                  (productoForm.get('marca').hasError('required') &&
+                    productoForm.get('marca').touched) ||
+                  (productoForm.get('marca').hasError('maxlength') &&
+                    productoForm.get('marca').touched)
+                "
+                class="error-message text-danger"
+              >
+                <span *ngIf="productoForm.get('marca').hasError('required')"
+                  >Marca es requerida.</span
+                >
+                <span *ngIf="productoForm.get('marca').hasError('maxlength')"
+                  >Marca no puede superar los 100 caracteres.</span
+                >
+              </div>
+            </div>
+          </div>
+  
+          <div class="field grid">
+            <label class="col-fixed" style="width: 150px">Modelo</label>
+            <div class="col">
+              <input
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus-border-primary"
+                type="text"
+                formControlName="modelo"
+                [placeholder]="
+                  modo === 'agregar'
+                    ? 'Modelo'
+                    : modo === 'editar'
+                    ? 'Nuevo modelo'
+                    : 'Modelo a eliminar'
+                "
+              />
+              <div
+                *ngIf="
+                  (productoForm.get('modelo').hasError('required') &&
+                    productoForm.get('modelo').touched) ||
+                  (productoForm.get('modelo').hasError('maxlength') &&
+                    productoForm.get('modelo').touched)
+                "
+                class="error-message text-danger"
+              >
+                <span *ngIf="productoForm.get('modelo').hasError('required')"
+                  >Modelo es requerido.</span
+                >
+                <span *ngIf="productoForm.get('modelo').hasError('maxlength')"
+                  >Modelo no puede superar los 100 caracteres.</span
+                >
+              </div>
+            </div>
+          </div>
+  
+          <div class="field grid">
+            <label class="col-fixed" style="width: 150px">Precio</label>
+            <div class="col">
+              <p-inputNumber
+                class="text-base text-color surface-overlay p-2 appearance-none outline-none focus-border-primary"
+                type="number"
+                formControlName="precio"
+                mode="currency"
+                currency="USD"
+                locale="en-US"
+                [placeholder]="
+                  modo === 'agregar'
+                    ? 'Precio'
+                    : modo === 'editar'
+                    ? 'Nuevo precio'
+                    : 'Precio a eliminar'
+                "
+              ></p-inputNumber>
+              <div
+                *ngIf="
+                  (productoForm.get('precio').hasError('required') &&
+                    productoForm.get('precio').touched) ||
+                  (productoForm.get('precio').hasError('min') &&
+                    productoForm.get('precio').touched) ||
+                  (productoForm.get('precio').hasError('max') &&
+                    productoForm.get('precio').touched)
+                "
+                class="error-message text-danger"
+              >
+                <span *ngIf="productoForm.get('precio').hasError('required')"
+                  >Precio es requerido.</span
+                >
+                <span *ngIf="productoForm.get('precio').hasError('min')"
+                  >El precio no puede ser menor que 0.</span
+                >
+                <span *ngIf="productoForm.get('precio').hasError('max')"
+                  >El precio no puede ser mayor de 999,999,999.</span
+                >
+              </div>
+            </div>
+          </div>
+  
+          <div class="field grid">
+            <label class="col-fixed" style="width: 150px">Categoría</label>
+            <div class="col">
+              <div class="card flex justify-content-center">
+                <p-dropdown
+                  [options]="groupedCategories"
+                  formControlName="categoriaId"
+                  placeholder="Selecciona una Categoría"
+                  [group]="true"
+                >
+                  <ng-template let-group pTemplate="group">
+                    {{ group.label }}
+                  </ng-template>
+                </p-dropdown>
+              </div>
+  
+              <div
+                *ngIf="
+                  productoForm.get('categoriaId').hasError('required') &&
+                  productoForm.get('categoriaId').touched
+                "
+                class="error-message text-danger"
+              >
+                La selección de Categoría es requerida.
+              </div>
+            </div>
+          </div>
+  
+          <div class="card flex justify-content-center"></div>
+  
+          <input
+            type="number"
+            hidden="true"
+            formControlName="descuento"
+            [placeholder]="
+              modo === 'agregar'
+                ? 'Descuento'
+                : modo === 'editar'
+                ? 'Nuevo descuento'
+                : 'Descuento a eliminar'
+            "
+          />
+        </div>
+        <br />
+        <p-button
+          type="submit"
+          [disabled]="submitClicked"
+          class="text-base text-color surface-overlay p-2 appearance-none outline-none focus-border-primary"
+        >
+          {{ capitalizeFirstLetter(modo) }}
+        </p-button>
+        &nbsp;
+        <p-button
+          severity="secondary"
+          (onClick)="regresar()"
+          class="text-base text-color surface-overlay p-2 appearance-none outline-none focus-border-primary"
+          >Regresar</p-button
+        >
+      </form>
+    </p-card>
+  </div>
+  

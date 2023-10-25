@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "primeng/resources/themes/bootstrap4-light-purple/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import 'primeflex/primeflex.css';
+
+
+  .spinner {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .texto-spinner {
+    margin: 0;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .layout-content {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #f5f7fac7;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+
+  .p-inputNumber {
+    width: 100%;
+  }
+
+  .text-danger{
+    color: tomato;
+    font-weight: bold;
+  }
+
+  .form-width {
+    max-width: 500px;
+    width: 100%
+  }
